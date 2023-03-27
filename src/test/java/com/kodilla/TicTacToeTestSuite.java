@@ -8,31 +8,13 @@ public class TicTacToeTestSuite {
     @Test
     public void winnerX10x10() {
         Game game = new Game();
-        game.resetTable3X3();
-        game.gameField3X3[1][1] = 'X';
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
-        game.playerComputerMove3X3();
-        game.showTable3X3();
-        System.out.println();
+        game.resetTable10X10();
+        game.gameField10X10[1][1] = 'X';
+        int a = 0;
+        while (a<98) {
+            game.playerComputerMove10X10();
+            a++;
+        }
+        game.showTable10X10();
     }
 }

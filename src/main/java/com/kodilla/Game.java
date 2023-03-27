@@ -9,21 +9,18 @@ public class Game {
     char [][] gameField10X10 = new char [10][10];
     int row;
     int col;
-    public String playerOneName;
-    public String playerTwoName;
-
     public void playerOneMove3X3() {
         boolean end = false;
         while (!end) {
-            System.out.println(playerOneName + " chose row");
+            System.out.println("Player 1 chose row");
             row = scanner.nextInt() - 1;
-            System.out.println(playerOneName + " chose column");
+            System.out.println("Player 1 chose column");
             col = scanner.nextInt() - 1;
             if (row > 2 || col > 2 || row < 0 || col < 0) {
                 System.out.println("Write correct coordinate");
             } else if (gameField3X3[row][col] == 'X' || gameField3X3[row][col] == 'O') {
                 System.out.println("This field is already in use. Chose other field");
-            } else if (row < 3 && col < 3){
+            } else {
                 gameField3X3[row][col] = 'X';
                 end = true;
             }
@@ -32,15 +29,15 @@ public class Game {
     public void playerOneMove10X10() {
         boolean end = false;
         while (!end) {
-            System.out.println(playerOneName + " chose row");
+            System.out.println("Player 1 chose row");
             row = scanner.nextInt() - 1;
-            System.out.println(playerOneName + " chose column");
+            System.out.println("Player 1 chose column");
             col = scanner.nextInt() - 1;
             if (row > 9 || col > 9 || row < 0 || col < 0) {
                 System.out.println("Write correct coordinate");
             } else if (gameField3X3[row][col] == 'X' || gameField3X3[row][col] == 'O') {
                 System.out.println("This field is already in use. Chose other field");
-            } else if (row < 10 && col < 10){
+            } else {
                 gameField3X3[row][col] = 'X';
                 end = true;
             }
@@ -60,18 +57,32 @@ public class Game {
             }
         }
     }
+    public void playerComputerMove10X10() {
+        boolean end = false;
+        Random random = new Random();
+        while (!end) {
+            row = random.nextInt(10);
+            col = random.nextInt(10);
+            if (gameField10X10[row][col] == ' ') {
+                gameField10X10[row][col] = 'O';
+                end = true;
+            } else {
+                end = false;
+            }
+        }
+    }
     public void playerTwoMove3X3() {
         boolean end = false;
         while (!end) {
-            System.out.println(playerTwoName + " chose row");
+            System.out.println("Player 2 chose row");
             row = scanner.nextInt() - 1;
-            System.out.println(playerTwoName + " chose column");
+            System.out.println("Player 2 chose column");
             col = scanner.nextInt() - 1;
             if (row > 2 || col > 2 || row < 0 || col < 0) {
                 System.out.println("Write correct coordinate");
             } else if (gameField3X3[row][col] == 'X' || gameField3X3[row][col] == 'O') {
                 System.out.println("This field is already in use. Chose other field");
-            } else if (row < 3 && col < 3){
+            } else {
                 gameField3X3[row][col] = 'O';
                 end = true;
             }
@@ -80,21 +91,20 @@ public class Game {
     public void playerTwoMove10X10() {
         boolean end = false;
         while (!end) {
-            System.out.println(playerTwoName + " chose row");
+            System.out.println("Player 2 chose row");
             row = scanner.nextInt() - 1;
-            System.out.println(playerTwoName + " chose column");
+            System.out.println("Player 2 chose column");
             col = scanner.nextInt() - 1;
             if (row > 9 || row < 0 || col > 9 || col < 0) {
                 System.out.println("Write correct coordinate");
             } else if (gameField3X3[row][col] == 'X' || gameField3X3[row][col] == 'O') {
                 System.out.println("This field is already in use. Chose other field");
-            } else if (row < 10 && col < 10){
+            } else {
                 gameField3X3[row][col] = 'O';
                 end = true;
             }
         }
     }
-
     public void showTable3X3() {
         System.out.println("| " + gameField3X3[0][0] + " | " + gameField3X3[0][1] + " | " + gameField3X3[0][2] + " |");
         System.out.println("| " + gameField3X3[1][0] + " | " + gameField3X3[1][1] + " | " + gameField3X3[1][2] + " |");
@@ -113,343 +123,345 @@ public class Game {
         System.out.println("| " + gameField10X10[9][0] + " | " + gameField10X10[9][1] + " | " + gameField10X10[9][2] + " | " +  gameField10X10[9][3] + " | " + gameField10X10[9][4] + " | " + gameField10X10[9][5] + " | " + gameField10X10[9][6] + " | " + gameField10X10[9][7] + " | " + gameField10X10[9][8] + " | " + gameField10X10[9][9] + " |");
     }
     public boolean checkForWinnerX3X3() {
-        String winner1 = "";
-        String winner2 = "";
-        String winner3 = "";
-        String winner4 = "";
-        String winner5 = "";
-        String winner6 = "";
-        String winner7 = "";
-        String winner8 = "";
+        StringBuilder winner1 = new StringBuilder();
+        StringBuilder winner2 = new StringBuilder();
+        StringBuilder winner3 = new StringBuilder();
+        StringBuilder winner4 = new StringBuilder();
+        StringBuilder winner5 = new StringBuilder();
+        StringBuilder winner6 = new StringBuilder();
+        StringBuilder winner7 = new StringBuilder();
+        StringBuilder winner8 = new StringBuilder();
 
         for (int i = 0; i < 3; i++) {
-            winner1 = winner1 + gameField3X3[i][i];
+            winner1.append(gameField3X3[i][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner2 = winner2 + gameField3X3[i][2-i];
+            winner2.append(gameField3X3[i][2 - i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner3 = winner3 + gameField3X3[0][i];
+            winner3.append(gameField3X3[0][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner4 = winner4 + gameField3X3[1][i];
+            winner4.append(gameField3X3[1][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner5 = winner5 + gameField3X3[2][i];
+            winner5.append(gameField3X3[2][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner6 = winner6 + gameField3X3[i][0];
+            winner6.append(gameField3X3[i][0]);
         }
         for (int i = 0; i < 3; i++) {
-            winner7 = winner7 + gameField3X3[i][1];
+            winner7.append(gameField3X3[i][1]);
         }
         for (int i = 0; i < 3; i++) {
-            winner8 = winner8 + gameField3X3[i][2];
+            winner8.append(gameField3X3[i][2]);
         }
         String win = "XXX";
-        if (winner1.contains(win) || winner2.contains(win) || winner3.contains(win) ||
-                winner4.contains(win) || winner5.contains(win) || winner6.contains(win) ||
-                winner7.contains(win) || winner8.contains(win)) {
-            System.out.println(playerOneName + " wins");
+        if (winner1.toString().contains(win) || winner2.toString().contains(win) || winner3.toString().contains(win) ||
+                winner4.toString().contains(win) || winner5.toString().contains(win) || winner6.toString().contains(win) ||
+                winner7.toString().contains(win) || winner8.toString().contains(win)) {
+            System.out.println("Player 1 wins");
             return true;
         } else {
             return false;
         }
     }
     public boolean checkForWinnerO3X3() {
-        String winner1 = "";
-        String winner2 = "";
-        String winner3 = "";
-        String winner4 = "";
-        String winner5 = "";
-        String winner6 = "";
-        String winner7 = "";
-        String winner8 = "";
+        StringBuilder winner1 = new StringBuilder();
+        StringBuilder winner2 = new StringBuilder();
+        StringBuilder winner3 = new StringBuilder();
+        StringBuilder winner4 = new StringBuilder();
+        StringBuilder winner5 = new StringBuilder();
+        StringBuilder winner6 = new StringBuilder();
+        StringBuilder winner7 = new StringBuilder();
+        StringBuilder winner8 = new StringBuilder();
 
         for (int i = 0; i < 3; i++) {
-            winner1 = winner1 + gameField3X3[i][i];
+            winner1.append(gameField3X3[i][i]);
         }
-        for (int i = 2; i > 3; i++) {
-            winner2 = winner2 + gameField3X3[i][2-i];
-        }
-        for (int i = 0; i < 3; i++) {
-            winner3 = winner3 + gameField3X3[0][i];
+        for (int i = 2; i < 3; i++) {
+            winner2.append(gameField3X3[i][2 - i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner4 = winner4 + gameField3X3[1][i];
+            winner3.append(gameField3X3[0][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner5 = winner5 + gameField3X3[2][i];
+            winner4.append(gameField3X3[1][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner6 = winner6 + gameField3X3[i][0];
+            winner5.append(gameField3X3[2][i]);
         }
         for (int i = 0; i < 3; i++) {
-            winner7 = winner7 + gameField3X3[i][1];
+            winner6.append(gameField3X3[i][0]);
         }
         for (int i = 0; i < 3; i++) {
-            winner8 = winner8 + gameField3X3[i][2];
+            winner7.append(gameField3X3[i][1]);
+        }
+        for (int i = 0; i < 3; i++) {
+            winner8.append(gameField3X3[i][2]);
         }
         String win = "OOO";
-        if (winner1.contains(win) || winner2.contains(win) || winner3.contains(win) ||
-                winner4.contains(win) || winner5.contains(win) || winner6.contains(win) ||
-                winner7.contains(win) || winner8.contains(win)) {
-            System.out.println(playerTwoName + " wins");
+        if (winner1.toString().contains(win) || winner2.toString().contains(win) || winner3.toString().contains(win) ||
+                winner4.toString().contains(win) || winner5.toString().contains(win) || winner6.toString().contains(win) ||
+                winner7.toString().contains(win) || winner8.toString().contains(win)) {
+            System.out.println("Player 2 wins");
             return true;
         } else {
             return false;
         }
     }
     public boolean checkForWinnerX10X10() {
-        String winner1 = "";
-        String winner2 = "";
-        String winner3 = "";
-        String winner4 = "";
-        String winner5 = "";
-        String winner6 = "";
-        String winner7 = "";
-        String winner8 = "";
-        String winner9 = "";
-        String winner10 = "";
-        String winner11 = "";
-        String winner12 = "";
-        String winner13 = "";
-        String winner14 = "";
-        String winner15 = "";
-        String winner16 = "";
-        String winner17 = "";
-        String winner18 = "";
-        String winner19 = "";
-        String winner20 = "";
-        String winner21 = "";
-        String winner22 = "";
-        String winner23 = "";
-        String winner24 = "";
-        String winner25 = "";
+        StringBuilder winner1 = new StringBuilder();
+        StringBuilder winner2 = new StringBuilder();
+        StringBuilder winner3 = new StringBuilder();
+        StringBuilder winner4 = new StringBuilder();
+        StringBuilder winner5 = new StringBuilder();
+        StringBuilder winner6 = new StringBuilder();
+        StringBuilder winner7 = new StringBuilder();
+        StringBuilder winner8 = new StringBuilder();
+        StringBuilder winner9 = new StringBuilder();
+        StringBuilder winner10 = new StringBuilder();
+        StringBuilder winner11 = new StringBuilder();
+        StringBuilder winner12 = new StringBuilder();
+        StringBuilder winner13 = new StringBuilder();
+        StringBuilder winner14 = new StringBuilder();
+        StringBuilder winner15 = new StringBuilder();
+        StringBuilder winner16 = new StringBuilder();
+        StringBuilder winner17 = new StringBuilder();
+        StringBuilder winner18 = new StringBuilder();
+        StringBuilder winner19 = new StringBuilder();
+        StringBuilder winner20 = new StringBuilder();
+        StringBuilder winner21 = new StringBuilder();
+        StringBuilder winner22 = new StringBuilder();
+        StringBuilder winner23 = new StringBuilder();
+        StringBuilder winner24 = new StringBuilder();
+        StringBuilder winner25 = new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
-            winner1 = winner1 + gameField10X10[i][i];
+            winner1.append(gameField10X10[i][i]);
         }
         for (int i = 1; i < 10; i++) {
-            winner2 = winner2 + gameField10X10[i][i-1];
+            winner2.append(gameField10X10[i][i - 1]);
         }
         for (int i = 2; i < 10; i++) {
-            winner3 = winner3 + gameField10X10[i][i-2];
+            winner3.append(gameField10X10[i][i - 2]);
         }
         for (int i = 3; i < 10; i++) {
-            winner4 = winner4 + gameField10X10[i][i-3];
+            winner4.append(gameField10X10[i][i - 3]);
         }
         for (int i = 4; i < 10; i++) {
-            winner5 = winner5 + gameField10X10[i][i-4];
+            winner5.append(gameField10X10[i][i - 4]);
         }
         for (int i = 5; i < 10; i++) {
-            winner6 = winner6 + gameField10X10[i][i-5];
+            winner6.append(gameField10X10[i][i - 5]);
         }
         for (int i = 1; i < 10; i++) {
-            winner7 = winner7 + gameField10X10[i-1][i];
+            winner7.append(gameField10X10[i - 1][i]);
         }
         for (int i = 2; i < 10; i++) {
-            winner8 = winner8 + gameField10X10[i-2][i];
+            winner8.append(gameField10X10[i - 2][i]);
         }
         for (int i = 3; i < 10; i++) {
-            winner9 = winner9 + gameField10X10[i-3][i];
+            winner9.append(gameField10X10[i - 3][i]);
         }
         for (int i = 4; i < 10; i++) {
-            winner10 = winner10 + gameField10X10[i-4][i];
+            winner10.append(gameField10X10[i - 4][i]);
         }
         for (int i = 5; i < 10; i++) {
-            winner11 = winner11 + gameField10X10[i-5][i];
+            winner11.append(gameField10X10[i - 5][i]);
         }
         for (int i = 9; i >= 0; i--) {
-            winner12 = winner12 + gameField10X10[i][i];
+            winner12.append(gameField10X10[i][i]);
         }
         for (int i = 0; i < 10; i++) {
-            winner13 = winner13 + gameField10X10[i][9-i];
+            winner13.append(gameField10X10[i][9 - i]);
         }
         for (int i = 0; i < 9; i++) {
-            winner14 = winner14 + gameField10X10[i][8-i];
+            winner14.append(gameField10X10[i][8 - i]);
         }
         for (int i = 0; i < 8; i++) {
-            winner15 = winner15 + gameField10X10[i][7-i];
+            winner15.append(gameField10X10[i][7 - i]);
         }
         for (int i = 0; i < 7; i++) {
-            winner16 = winner16 + gameField10X10[i][6-i];
+            winner16.append(gameField10X10[i][6 - i]);
         }
         for (int i = 0; i < 6; i++) {
-            winner17 = winner17 + gameField10X10[i][5-i];
+            winner17.append(gameField10X10[i][5 - i]);
         }
         for (int i = 0; i < 5; i++) {
-            winner18 = winner18 + gameField10X10[i][4-i];
+            winner18.append(gameField10X10[i][4 - i]);
         }
         for (int i = 1; i < 10; i++) {
-            winner19 = winner19 + gameField10X10[i][10-i];
+            winner19.append(gameField10X10[i][10 - i]);
         }
         for (int i = 2; i < 10; i++) {
-            winner20 = winner20 + gameField10X10[i][11-i];
+            winner20.append(gameField10X10[i][11 - i]);
         }
         for (int i = 3; i < 10; i++) {
-            winner21 = winner21 + gameField10X10[i][12-i];
+            winner21.append(gameField10X10[i][12 - i]);
         }
         for (int i = 4; i < 10; i++) {
-            winner22 = winner22 + gameField10X10[i][13-i];
+            winner22.append(gameField10X10[i][13 - i]);
         }
         for (int i = 5; i < 10; i++) {
-            winner23 = winner23 + gameField10X10[i][14-i];
+            winner23.append(gameField10X10[i][14 - i]);
         }
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                winner24 = winner24 + gameField10X10[i][j];
+                winner24.append(gameField10X10[i][j]);
             }
         }
-        winner24 = winner24.replaceAll("..........", "$0 ");
+        winner24 = new StringBuilder(winner24.toString().replaceAll("..........", "$0 "));
 
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 10; i++) {
-                winner25 = winner25 + gameField10X10[i][j];
+                winner25.append(gameField10X10[i][j]);
             }
         }
-        winner25 = winner25.replaceAll("..........", "$0 ");
+        winner25 = new StringBuilder(winner25.toString().replaceAll("..........", "$0 "));
         System.out.println(winner25);
         String win = "XXXXX";
-        if (winner1.contains(win) || winner2.contains(win) || winner3.contains(win) ||
-                winner4.contains(win) || winner5.contains(win) || winner6.contains(win) ||
-                winner7.contains(win) || winner8.contains(win) || winner9.contains(win) ||
-                winner10.contains(win) || winner11.contains(win) || winner12.contains(win) ||
-                winner13.contains(win) || winner14.contains(win) || winner15.contains(win) ||
-                winner16.contains(win) || winner17.contains(win) || winner18.contains(win) ||
-                winner19.contains(win) || winner20.contains(win) || winner21.contains(win) ||
-                winner22.contains(win) || winner23.contains(win) || winner24.contains(win) ||
-                winner25.contains(win)) {
+        if (winner1.toString().contains(win) || winner2.toString().contains(win) || winner3.toString().contains(win) ||
+                winner4.toString().contains(win) || winner5.toString().contains(win) || winner6.toString().contains(win) ||
+                winner7.toString().contains(win) || winner8.toString().contains(win) || winner9.toString().contains(win) ||
+                winner10.toString().contains(win) || winner11.toString().contains(win) || winner12.toString().contains(win) ||
+                winner13.toString().contains(win) || winner14.toString().contains(win) || winner15.toString().contains(win) ||
+                winner16.toString().contains(win) || winner17.toString().contains(win) || winner18.toString().contains(win) ||
+                winner19.toString().contains(win) || winner20.toString().contains(win) || winner21.toString().contains(win) ||
+                winner22.toString().contains(win) || winner23.toString().contains(win) || winner24.toString().contains(win) ||
+                winner25.toString().contains(win)) {
+            System.out.println("Player 1 wins");
             return true;
         } else {
             return false;
         }
     }
     public boolean checkForWinnerO10X10() {
-        String winner1 = "";
-        String winner2 = "";
-        String winner3 = "";
-        String winner4 = "";
-        String winner5 = "";
-        String winner6 = "";
-        String winner7 = "";
-        String winner8 = "";
-        String winner9 = "";
-        String winner10 = "";
-        String winner11 = "";
-        String winner12 = "";
-        String winner13 = "";
-        String winner14 = "";
-        String winner15 = "";
-        String winner16 = "";
-        String winner17 = "";
-        String winner18 = "";
-        String winner19 = "";
-        String winner20 = "";
-        String winner21 = "";
-        String winner22 = "";
-        String winner23 = "";
-        String winner24 = "";
-        String winner25 = "";
+        StringBuilder winner1 = new StringBuilder();
+        StringBuilder winner2 = new StringBuilder();
+        StringBuilder winner3 = new StringBuilder();
+        StringBuilder winner4 = new StringBuilder();
+        StringBuilder winner5 = new StringBuilder();
+        StringBuilder winner6 = new StringBuilder();
+        StringBuilder winner7 = new StringBuilder();
+        StringBuilder winner8 = new StringBuilder();
+        StringBuilder winner9 = new StringBuilder();
+        StringBuilder winner10 = new StringBuilder();
+        StringBuilder winner11 = new StringBuilder();
+        StringBuilder winner12 = new StringBuilder();
+        StringBuilder winner13 = new StringBuilder();
+        StringBuilder winner14 = new StringBuilder();
+        StringBuilder winner15 = new StringBuilder();
+        StringBuilder winner16 = new StringBuilder();
+        StringBuilder winner17 = new StringBuilder();
+        StringBuilder winner18 = new StringBuilder();
+        StringBuilder winner19 = new StringBuilder();
+        StringBuilder winner20 = new StringBuilder();
+        StringBuilder winner21 = new StringBuilder();
+        StringBuilder winner22 = new StringBuilder();
+        StringBuilder winner23 = new StringBuilder();
+        StringBuilder winner24 = new StringBuilder();
+        StringBuilder winner25 = new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
-            winner1 = winner1 + gameField10X10[i][i];
+            winner1.append(gameField10X10[i][i]);
         }
         for (int i = 1; i < 10; i++) {
-            winner2 = winner2 + gameField10X10[i][i-1];
+            winner2.append(gameField10X10[i][i - 1]);
         }
         for (int i = 2; i < 10; i++) {
-            winner3 = winner3 + gameField10X10[i][i-2];
+            winner3.append(gameField10X10[i][i - 2]);
         }
         for (int i = 3; i < 10; i++) {
-            winner4 = winner4 + gameField10X10[i][i-3];
+            winner4.append(gameField10X10[i][i - 3]);
         }
         for (int i = 4; i < 10; i++) {
-            winner5 = winner5 + gameField10X10[i][i-4];
+            winner5.append(gameField10X10[i][i - 4]);
         }
         for (int i = 5; i < 10; i++) {
-            winner6 = winner6 + gameField10X10[i][i-5];
+            winner6.append(gameField10X10[i][i - 5]);
         }
         for (int i = 1; i < 10; i++) {
-            winner7 = winner7 + gameField10X10[i-1][i];
+            winner7.append(gameField10X10[i - 1][i]);
         }
         for (int i = 2; i < 10; i++) {
-            winner8 = winner8 + gameField10X10[i-2][i];
+            winner8.append(gameField10X10[i - 2][i]);
         }
         for (int i = 3; i < 10; i++) {
-            winner9 = winner9 + gameField10X10[i-3][i];
+            winner9.append(gameField10X10[i - 3][i]);
         }
         for (int i = 4; i < 10; i++) {
-            winner10 = winner10 + gameField10X10[i-4][i];
+            winner10.append(gameField10X10[i - 4][i]);
         }
         for (int i = 5; i < 10; i++) {
-            winner11 = winner11 + gameField10X10[i-5][i];
+            winner11.append(gameField10X10[i - 5][i]);
         }
         for (int i = 9; i >= 0; i--) {
-            winner12 = winner12 + gameField10X10[i][i];
+            winner12.append(gameField10X10[i][i]);
         }
         for (int i = 0; i < 10; i++) {
-            winner13 = winner13 + gameField10X10[i][9-i];
+            winner13.append(gameField10X10[i][9 - i]);
         }
         for (int i = 0; i < 9; i++) {
-            winner14 = winner14 + gameField10X10[i][8-i];
+            winner14.append(gameField10X10[i][8 - i]);
         }
         for (int i = 0; i < 8; i++) {
-            winner15 = winner15 + gameField10X10[i][7-i];
+            winner15.append(gameField10X10[i][7 - i]);
         }
         for (int i = 0; i < 7; i++) {
-            winner16 = winner16 + gameField10X10[i][6-i];
+            winner16.append(gameField10X10[i][6 - i]);
         }
         for (int i = 0; i < 6; i++) {
-            winner17 = winner17 + gameField10X10[i][5-i];
+            winner17.append(gameField10X10[i][5 - i]);
         }
         for (int i = 0; i < 5; i++) {
-            winner18 = winner18 + gameField10X10[i][4-i];
+            winner18.append(gameField10X10[i][4 - i]);
         }
         for (int i = 1; i < 10; i++) {
-            winner19 = winner19 + gameField10X10[i][10-i];
+            winner19.append(gameField10X10[i][10 - i]);
         }
         for (int i = 2; i < 10; i++) {
-            winner20 = winner20 + gameField10X10[i][11-i];
+            winner20.append(gameField10X10[i][11 - i]);
         }
         for (int i = 3; i < 10; i++) {
-            winner21 = winner21 + gameField10X10[i][12-i];
+            winner21.append(gameField10X10[i][12 - i]);
         }
         for (int i = 4; i < 10; i++) {
-            winner22 = winner22 + gameField10X10[i][13-i];
+            winner22.append(gameField10X10[i][13 - i]);
         }
         for (int i = 5; i < 10; i++) {
-            winner23 = winner23 + gameField10X10[i][14-i];
+            winner23.append(gameField10X10[i][14 - i]);
         }
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                winner24 = winner24 + gameField10X10[i][j];
+                winner24.append(gameField10X10[i][j]);
             }
         }
-        winner24 = winner24.replaceAll("..........", "$0 ");
+        winner24 = new StringBuilder(winner24.toString().replaceAll("..........", "$0 "));
+
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 10; i++) {
-                winner25 = winner25 + gameField10X10[i][j];
+                winner25.append(gameField10X10[i][j]);
             }
         }
-        winner25 = winner25.replaceAll("..........", "$0 ");
+        winner25 = new StringBuilder(winner25.toString().replaceAll("..........", "$0 "));
         System.out.println(winner25);
         String win = "OOOOO";
-        if (winner1.contains(win) || winner2.contains(win) || winner3.contains(win) ||
-                winner4.contains(win) || winner5.contains(win) || winner6.contains(win) ||
-                winner7.contains(win) || winner8.contains(win) || winner9.contains(win) ||
-                winner10.contains(win) || winner11.contains(win) || winner12.contains(win) ||
-                winner13.contains(win) || winner14.contains(win) || winner15.contains(win) ||
-                winner16.contains(win) || winner17.contains(win) || winner18.contains(win) ||
-                winner19.contains(win) || winner20.contains(win) || winner21.contains(win) ||
-                winner22.contains(win) || winner23.contains(win) || winner24.contains(win) ||
-                winner25.contains(win)) {
+        if (winner1.toString().contains(win) || winner2.toString().contains(win) || winner3.toString().contains(win) ||
+                winner4.toString().contains(win) || winner5.toString().contains(win) || winner6.toString().contains(win) ||
+                winner7.toString().contains(win) || winner8.toString().contains(win) || winner9.toString().contains(win) ||
+                winner10.toString().contains(win) || winner11.toString().contains(win) || winner12.toString().contains(win) ||
+                winner13.toString().contains(win) || winner14.toString().contains(win) || winner15.toString().contains(win) ||
+                winner16.toString().contains(win) || winner17.toString().contains(win) || winner18.toString().contains(win) ||
+                winner19.toString().contains(win) || winner20.toString().contains(win) || winner21.toString().contains(win) ||
+                winner22.toString().contains(win) || winner23.toString().contains(win) || winner24.toString().contains(win) ||
+                winner25.toString().contains(win)) {
+            System.out.println("Player 2 wins");
             return true;
         } else {
             return false;
         }
     }
-
     public void resetTable3X3() {
         for(int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

@@ -1,5 +1,4 @@
 package com.kodilla;
-
 import java.util.Scanner;
 
 public class TicTacToeRunner {
@@ -8,78 +7,117 @@ public class TicTacToeRunner {
 
         Game game = new Game();
         boolean endApp = false;
-        boolean end = false;
         boolean turn = true; // true for player one, false for player two
-        int moves3x3 = 0;
+        int movesCounter;
 
         System.out.println("Welcome in tic tac toe");
         System.out.println();
-//        game.playerOneName = scanner.next();
-//        game.playerTwoName = scanner.next();
 
         while(!endApp) {
             System.out.println("Please select type of game which you want to play");
-            System.out.println("3X3 or 10X10?");
+            System.out.println("Type 1 for 3X3 or 2 for 10X10?");
             System.out.println("If you want to exit the game press X");
             String typeOfGame = scanner.next().toUpperCase();
-            if (typeOfGame.equals("3X3")) {
-                boolean end1 = false;
-                boolean end2 = false;
-                game.resetTable3X3();
-                moves3x3 = 0;
-                System.out.println("Do you want to play against other player or computer?");
-                System.out.println("Type: Player or Computer");
-                String player = scanner.next().toUpperCase();
-                if(player.equals("PLAYER")) {
-                    while (end1 == false || end2 == false || moves3x3 == 9 || end == false) {
-                        if (!game.checkForWinnerX3X3() && turn == true && moves3x3 < 10) {
-                            game.showTable3X3();
-                            game.playerOneMove3X3();
-                            end1 = game.checkForWinnerX3X3();
-                            moves3x3++;
-                            turn = false;
-                        } else if (game.checkForWinnerO3X3() == false && turn == false) {
-                            game.showTable3X3();
-                            game.playerTwoMove3X3();
-                            end2 = game.checkForWinnerO3X3();
-                            moves3x3++;
-                            turn = true;
-                        } else if (moves3x3 == 9) {
-                            System.out.println("Draw");
-                            end = true;
+            switch (typeOfGame) {
+                case "1" -> {
+                    game.resetTable3X3();
+                    movesCounter = 0;
+                    System.out.println("Do you want to play against other player or computer?");
+                    System.out.println("Type 1 for player or 2 for computer");
+                    String player = scanner.next();
+                    boolean xWin = false;
+                    boolean oWin = false;
+                    if (player.equals("1")) {
+                        while (xWin || oWin || movesCounter < 10) {
+                            if (!xWin && !oWin && turn && movesCounter < 9) {
+                                game.showTable3X3();
+                                game.playerOneMove3X3();
+                                xWin = game.checkForWinnerX3X3();
+                                movesCounter++;
+                                turn = false;
+                            } else if (!xWin && !oWin && !turn && movesCounter < 9) {
+                                game.showTable3X3();
+                                game.playerTwoMove3X3();
+                                oWin = game.checkForWinnerO3X3();
+                                movesCounter++;
+                                turn = true;
+                            } else if (movesCounter == 9) {
+                                System.out.println("Draw");
+                                movesCounter++;
+                            }
+                        }
+                    } else if (player.equals("2")) {
+                        game.showTable3X3();
+                        while (xWin || oWin || movesCounter < 10) {
+                            if (!xWin && !oWin && turn && movesCounter < 9) {
+                                game.playerOneMove3X3();
+                                xWin = game.checkForWinnerX3X3();
+                                movesCounter++;
+                                turn = false;
+                            } else if (!xWin && !oWin && !turn && movesCounter < 9) {
+                                game.playerComputerMove3X3();
+                                game.showTable3X3();
+                                oWin = game.checkForWinnerO3X3();
+                                movesCounter++;
+                                turn = true;
+                            } else if (movesCounter == 9) {
+                                System.out.println("Draw");
+                                movesCounter++;
+                            } else {
+                                break;
+                            }
                         }
                     }
                 }
-                if (player.equals("COMPUTER")) {
-                    while (end1 == false || end2 == false || moves3x3 == 9 || end == false) {
-
-                        if (!game.checkForWinnerX3X3() || turn || moves3x3 < 10) {
-                            game.showTable3X3();
-                            game.playerOneMove3X3();
-                            end1 = game.checkForWinnerX3X3();
-                            moves3x3++;
-                            turn = false;
-                        } else if (game.checkForWinnerO3X3() == false && turn == false) {
-                            game.showTable3X3();
-                            game.playerComputerMove3X3();
-                            end2 = game.checkForWinnerO3X3();
-                            moves3x3++;
-                            turn = true;
-                        } else if (moves3x3 == 9) {
-                            System.out.println("Draw");
-                            end = true;
+                case "2" -> {
+                    game.resetTable10X10();
+                    movesCounter = 0;
+                    System.out.println("Do you want to play against other player or computer?");
+                    System.out.println("Type 1 for player or 2 for computer");
+                    String player = scanner.next();
+                    boolean xWin = false;
+                    boolean oWin = false;
+                    if (player.equals("1")) {
+                        while (xWin || oWin || movesCounter < 100) {
+                            if (!xWin && !oWin && turn && movesCounter < 99) {
+                                game.showTable10X10();
+                                game.playerOneMove10X10();
+                                xWin = game.checkForWinnerX10X10();
+                                movesCounter++;
+                                turn = false;
+                            } else if (!xWin && !oWin && !turn && movesCounter < 99) {
+                                game.showTable10X10();
+                                game.playerTwoMove10X10();
+                                oWin = game.checkForWinnerO10X10();
+                                movesCounter++;
+                                turn = true;
+                            } else if (movesCounter == 100) {
+                                System.out.println("Draw");
+                                movesCounter++;
+                            }
+                        }
+                    } else if (player.equals("2")) {
+                        game.showTable10X10();
+                        while (xWin || oWin || movesCounter < 100) {
+                            if (!xWin && !oWin && turn && movesCounter < 99) {
+                                game.playerOneMove10X10();
+                                xWin = game.checkForWinnerX10X10();
+                                movesCounter++;
+                                turn = false;
+                            } else if (!xWin && !oWin && !turn) {
+                                game.playerComputerMove10X10();
+                                game.showTable10X10();
+                                oWin = game.checkForWinnerO10X10();
+                                movesCounter++;
+                                turn = true;
+                            } else if (movesCounter == 100) {
+                                System.out.println("Draw");
+                            }
                         }
                     }
                 }
-            } else if (typeOfGame.equals("10X10")) {
-                while (!endApp) {
-                    game.showTable10X10();
-                    endApp = true;
-                }
-            } else if (typeOfGame.equals("X")){
-                endApp = true;
-            } else {
-                System.out.println("Choose correct type: 3x3 or 10x10");
+                case "X" -> endApp = true;
+                default -> System.out.println("Choose correct type: 3x3 or 10x10");
             }
         }
     }
