@@ -179,7 +179,7 @@ public class Game {
         for (int i = 0; i < 3; i++) {
             winner1.append(gameField3X3[i][i]);
         }
-        for (int i = 2; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             winner2.append(gameField3X3[i][2 - i]);
         }
         for (int i = 0; i < 3; i++) {
@@ -319,7 +319,6 @@ public class Game {
             }
         }
         winner25 = new StringBuilder(winner25.toString().replaceAll("..........", "$0 "));
-        System.out.println(winner25);
         String win = "XXXXX";
         if (winner1.toString().contains(win) || winner2.toString().contains(win) || winner3.toString().contains(win) ||
                 winner4.toString().contains(win) || winner5.toString().contains(win) || winner6.toString().contains(win) ||
@@ -445,7 +444,6 @@ public class Game {
             }
         }
         winner25 = new StringBuilder(winner25.toString().replaceAll("..........", "$0 "));
-        System.out.println(winner25);
         String win = "OOOOO";
         if (winner1.toString().contains(win) || winner2.toString().contains(win) || winner3.toString().contains(win) ||
                 winner4.toString().contains(win) || winner5.toString().contains(win) || winner6.toString().contains(win) ||
