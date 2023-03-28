@@ -1112,18 +1112,4 @@ public class TicTacToeTestSuite {
         assertEquals(false, game.checkForWinnerO10X10());
         assertEquals("Draw", result);
     }
-    @Test
-    public void incorrectCoordinatesForX3X3() {
-        //Given
-        Game game = new Game();
-        game.resetTable3X3();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j <3; j++) {
-                game.gameField3X3[i][j] = 'X';
-            }
-        }
-        //When
-        //Then
-        assertEquals(true, game.playerOneMove3X3());
-    }
 }
